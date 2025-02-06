@@ -3,7 +3,7 @@ import {
   getUserCourseProgress,
   getUserEnrolledCourses,
   updateUserCourseProgress,
-} from "../controllers/userProgressController";
+} from "../controllers/userCourseProgressController";
 
 const router = express.Router();
 
