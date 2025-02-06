@@ -31,11 +31,15 @@ const PaymentPageContent = () => {
       return;
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_LOCAL_URL
-      ? `http://${process.env.NEXT_PUBLIC_LOCAL_URL}`
-      : process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    const localUrl = process.env.NEXT_PUBLIC_LOCAL_URL;
+    const vercelUrl = process.env.NEXT_PUBLIC_VERCEL_URL;
+    
+    const baseUrl = localUrl
+      ? `http://${localUrl.replace(/^https?:\/\//, "")}` // Ensure no duplicate "http://"
+      : vercelUrl
+      ? `https://${vercelUrl.replace(/^https?:\/\//, "")}` // Ensure no duplicate "https://"
       : undefined;
+    
 
     const result = await stripe.confirmPayment({
       elements,
